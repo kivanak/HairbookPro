@@ -1,33 +1,55 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Home";
 }
 
-<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
-    </section>
+<header class="hero py-5 text-white bg-primary text-center">
+    <div class="container">
+        <h1 class="display-4">HairBookPro</h1>
+        <p class="lead">Profesionalne frizerske usluge — rezervirajte online, upoznajte naše stiliste.</p>
+        <p><a href='@Url.Action("Index", "Services")' class="btn btn-light btn-lg">Pregled usluga</a></p>
+    </div>
+</header>
+
+<main class="container py-5">
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h2>Usluge</h2>
+            <p>Brz pregled najpopularnijih usluga i jednostavno zakazivanje.</p>
+            <ul>
+                <li>Ženski šišanje</li>
+                <li>Muški šišanje</li>
+                <li>Boje i pramenovi</li>
+                <li>Keratin tretman</li>
+            </ul>
+            <p><a href='@Url.Action("Index", "Services")' class="btn btn-primary">Pogledaj sve usluge</a></p>
+        </div>
+        <div class="col-md-6">
+            <h2>Upoznajte stiliste</h2>
+            <p>Iskusni profesionalci koji brinu o vašem izgledu.</p>
+            <p><a href='@Url.Action("Index", "Stylists")' class="btn btn-outline-primary">Upoznajte tim</a></p>
+        </div>
+    </div>
 
     <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </section>
+        <div class="col-md-8">
+            <h3>Najnovije s bloga</h3>
+            <article class="mb-3">
+                <h4>Top ljetne frizure</h4>
+                <p class="text-muted">Kratki savjeti kako održati kosu zdravom i modernom ovog ljeta.</p>
+                <p><a href='@Url.Action("Index", "Blog")' class="btn btn-sm btn-outline-secondary">Pročitaj više</a></p>
+            </article>
+        </div>
+        <aside class="col-md-4">
+            <h3>Kontakt</h3>
+            <p>Treba li vam pomoć pri zakazivanju ili imate pitanje? <a href='@Url.Action("Contact", "Home")'>Kontaktirajte nas</a>.</p>
+            <p><a href='@Url.Action("Contact", "Home")' class="btn btn-primary">Pošalji poruku</a></p>
+        </aside>
     </div>
 </main>
+
+<section class="bg-light py-4">
+    <div class="container text-center">
+        <h4>Spremni za novi izgled?</h4>
+        <p><a href='@Url.Action("Create", "Appointments")' class="btn btn-success">Rezerviraj termin</a></p>
+    </div>
+</section>
