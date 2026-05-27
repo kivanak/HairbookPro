@@ -1299,3 +1299,12 @@ textarea.form-control {
     padding-top: 14px;
     border-top: 1px solid var(--border);
 }
+.deleted-comment-box {
+    background: #fff5f2;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px;
+    color: var(--text);
+    line-height: 1.6;
+    max-width: 420px;
+}

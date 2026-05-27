@@ -1,0 +1,52 @@
+@model IEnumerable<Hairbookpro.Models.DeletedCommentLog>
+
+@{
+    ViewBag.Title = "Obrisani komentari";
+}
+
+<section class="admin-page-header">
+    <div>
+        <span class="home-eyebrow">Administracija</span>
+        <h1>Arhiva obrisanih komentara</h1>
+        <p>
+            Ovdje se prikazuju komentari koje je admin obrisao.
+            Podaci se automatski arhiviraju putem SQL triggera.
+        </p>
+    </div>
+</section>
+
+<div class="admin-table-card">
+    <div class="table-responsive">
+        <table class="table align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Korisnik</th>
+                    <th>Blog Post ID</th>
+                    <th>Sadržaj komentara</th>
+                    <th>Vrijeme brisanja</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var comment in Model)
+                {
+                    <tr>
+                        <td>@comment.UserId</td>
+
+                        <td>#@comment.BlogPostId</td>
+
+                        <td>
+                            <div class="deleted-comment-box">
+                                @comment.Content
+                            </div>
+                        </td>
+
+                        <td>
+                            @comment.DeletedAt.ToString("dd.MM.yyyy HH:mm")
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

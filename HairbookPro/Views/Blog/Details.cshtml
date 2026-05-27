@@ -44,6 +44,47 @@
                     </div>
 
                     <p>@comment.Content</p>
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <button class="btn btn-sm btn-danger mt-2"
+                                data-bs-toggle="modal"
+                                data-bs-target="#deleteCommentModal-@comment.Id">
+                            Obriši komentar
+                        </button>
+
+                        <div class="modal fade" id="deleteCommentModal-@comment.Id" tabindex="-1">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content salon-modal">
+                                    <div class="modal-header border-0">
+                                        <h5 class="modal-title">Brisanje komentara</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <p>Da li ste sigurni da želite obrisati ovaj komentar?</p>
+                                        <strong>@comment.Content</strong>
+                                    </div>
+
+                                    <div class="modal-footer border-0">
+                                        <button type="button"
+                                                class="btn btn-outline-secondary"
+                                                data-bs-dismiss="modal">
+                                            Otkaži
+                                        </button>
+
+                                        @using (Html.BeginForm("DeleteComment", "Blog", new { id = comment.Id }, FormMethod.Post))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-danger">
+                                                Obriši
+                                            </button>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
             }
         }

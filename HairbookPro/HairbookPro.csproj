@@ -173,6 +173,7 @@
     <Compile Include="Controllers\Admin\AdminBlogPostsController.cs" />
     <Compile Include="Controllers\Admin\AdminContactsController.cs" />
     <Compile Include="Controllers\Admin\AdminDashboardController.cs" />
+    <Compile Include="Controllers\Admin\AdminDeletedCommentsController.cs" />
     <Compile Include="Controllers\Admin\AdminServicesController.cs" />
     <Compile Include="Controllers\Admin\AdminStylistsController.cs" />
     <Compile Include="Controllers\AppointmentsController.cs" />
@@ -215,6 +216,7 @@
     <Content Include="Views\AdminBlogPosts\Create.cshtml" />
     <Content Include="Views\AdminBlogPosts\Edit.cshtml" />
     <Content Include="Views\AdminAppointments\Index.cshtml" />
+    <Content Include="Views\AdminDeletedComments\Index.cshtml" />
     <None Include="Views\AdminServices\Index.cshtml" />
     <Content Include="Views\Stylists\Index.cshtml" />
     <Content Include="Views\AdminStylists\Create.cshtml" />

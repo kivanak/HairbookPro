@@ -55,5 +55,25 @@ namespace Hairbookpro.Controllers
 
             return RedirectToAction("Details", new { id = blogPostId });
         }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteComment(int id)
+        {
+            var comment = db.Comments.Find(id);
+
+            if (comment == null)
+            {
+                return HttpNotFound();
+            }
+
+            var blogPostId = comment.BlogPostId;
+
+            db.Comments.Remove(comment);
+            db.SaveChanges();
+
+            return RedirectToAction("Details", new { id = blogPostId });
+        }
     }
 }
