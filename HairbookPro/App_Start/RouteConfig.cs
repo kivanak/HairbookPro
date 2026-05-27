@@ -13,6 +13,13 @@ namespace Hairbookpro
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            // Admin route prefix: allows URLs like /Admin/AdminServices to map to AdminServicesController
+            routes.MapRoute(
+                name: "AdminPrefix",
+                url: "Admin/{controller}/{action}/{id}",
+                defaults: new { action = "Index", id = UrlParameter.Optional }
+            );
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

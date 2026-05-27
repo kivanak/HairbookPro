@@ -1,0 +1,19 @@
+@model Hairbookpro.Models.Stylist
+
+@{
+    ViewBag.Title = "Delete Stylist";
+}
+
+<h2>Delete Stylist</h2>
+
+<div>
+    <h4>@Model.FullName</h4>
+    <p>@Model.Specialization</p>
+</div>
+
+@using (Html.BeginForm("Delete", "AdminStylists", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+    <button type="submit" class="btn btn-danger">Delete</button>
+}

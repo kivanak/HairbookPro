@@ -19,6 +19,8 @@
             //  to avoid creating duplicate seed data.
             // Call helper to ensure roles and admin user exist
             Hairbookpro.Models.SeedRolesAndAdmin.Seed(context);
+            // Seed initial sample data (services, categories, stylists, blog posts)
+            Hairbookpro.Models.SeedInitialData.Seed(context);
         }
     }
 }

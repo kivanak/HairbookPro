@@ -16,7 +16,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
         <div class="container">
             @Html.ActionLink("Hairbookpro", "Index", "Home", new { area = "" }, new { @class = "navbar-brand fw-bold text-primary" })
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="mainNav">
@@ -27,6 +27,23 @@
                     <li class="nav-item">@Html.ActionLink("Contact", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                 </ul>
                 <div class="d-flex align-items-center">
+                    @if (User != null && User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <ul class="navbar-nav mr-3">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
+                                    <a class="dropdown-item" href='@Url.Action("Index","AdminServices")'>Manage Services</a>
+                                    <a class="dropdown-item" href='@Url.Action("Index","AdminBlogPosts")'>Manage Posts</a>
+                                    <a class="dropdown-item" href='@Url.Action("Index","AdminStylists")'>Manage Stylists</a>
+                                    <a class="dropdown-item" href='@Url.Action("Index","AdminContacts")'>Contact Messages</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href='@Url.Action("Index","AdminDashboard")'>Admin Dashboard</a>
+                                </div>
+                            </li>
+                        </ul>
+                    }
+
                     @Html.Partial("_LoginPartial")
                 </div>
             </div>
@@ -40,8 +57,8 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    <script src="@Url.Content("~/Scripts/jquery-3.7.0.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.bundle.js")"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

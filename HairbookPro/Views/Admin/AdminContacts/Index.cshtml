@@ -1,0 +1,39 @@
+@model IEnumerable<Hairbookpro.Models.ContactMessage>
+
+@{
+    ViewBag.Title = "Contact Messages";
+}
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="@Url.Action("Index", "AdminDashboard")">Admin</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Contact Messages</li>
+  </ol>
+</nav>
+
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Contact Messages</h4>
+    <table class="table table-striped mb-0">
+      <thead>
+        <tr>
+          <th>Full Name</th>
+          <th>Email</th>
+          <th>Message</th>
+          <th>Created</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach(var m in Model)
+        {
+          <tr>
+            <td>@m.FullName</td>
+            <td>@m.Email</td>
+            <td>@m.Message</td>
+            <td>@m.CreatedAt</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

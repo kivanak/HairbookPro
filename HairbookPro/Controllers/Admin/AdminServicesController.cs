@@ -19,7 +19,7 @@ namespace Hairbookpro.Controllers.Admin
         public ActionResult Create()
         {
             ViewBag.ServiceCategoryId = new SelectList(db.ServiceCategories, "Id", "Name");
-            return View(new Service { IsActive = true });
+            return View("~/Views/Admin/AdminServices/Create.cshtml", new Service { IsActive = true });
         }
 
         [HttpPost]
@@ -34,7 +34,7 @@ namespace Hairbookpro.Controllers.Admin
             }
 
             ViewBag.ServiceCategoryId = new SelectList(db.ServiceCategories, "Id", "Name", service.ServiceCategoryId);
-            return View(service);
+            return View("~/Views/Admin/AdminServices/Create.cshtml", service);
         }
 
         public ActionResult Edit(int? id)
@@ -44,7 +44,7 @@ namespace Hairbookpro.Controllers.Admin
             if (service == null) return HttpNotFound();
 
             ViewBag.ServiceCategoryId = new SelectList(db.ServiceCategories, "Id", "Name", service.ServiceCategoryId);
-            return View(service);
+            return View("~/Views/Admin/AdminServices/Edit.cshtml", service);
         }
 
         [HttpPost]
@@ -59,7 +59,7 @@ namespace Hairbookpro.Controllers.Admin
             }
 
             ViewBag.ServiceCategoryId = new SelectList(db.ServiceCategories, "Id", "Name", service.ServiceCategoryId);
-            return View(service);
+            return View("~/Views/Admin/AdminServices/Delete.cshtml", service);
         }
 
         public ActionResult Delete(int? id)

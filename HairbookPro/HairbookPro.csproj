@@ -170,7 +170,10 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Admin\AdminBlogPostsController.cs" />
+    <Compile Include="Controllers\Admin\AdminContactsController.cs" />
+    <Compile Include="Controllers\Admin\AdminDashboardController.cs" />
     <Compile Include="Controllers\Admin\AdminServicesController.cs" />
+    <Compile Include="Controllers\Admin\AdminStylistsController.cs" />
     <Compile Include="Controllers\AppointmentsController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -196,6 +199,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Review.cs" />
+    <Compile Include="Models\SeedInitialData.cs" />
     <Compile Include="Models\SeedRolesAndAdmin.cs" />
     <Compile Include="Models\Service.cs" />
     <Compile Include="Models\ServiceCategory.cs" />
@@ -284,6 +288,24 @@
     <Content Include="Views\Services\Details.cshtml" />
     <Content Include="Views\Services\Index.cshtml" />
     <Content Include="Views\Services\Search.cshtml" />
+    <Content Include="Views\Admin\AdminStylists\Index.cshtml" />
+    <Content Include="Views\Admin\AdminStylists\Create.cshtml" />
+    <Content Include="Views\Admin\AdminStylists\Edit.cshtml" />
+    <Content Include="Views\Admin\AdminStylists\Delete.cshtml" />
+    <Content Include="Views\Admin\AdminContacts\Index.cshtml" />
+    <Content Include="Views\Admin\AdminDashboard\Index.cshtml" />
+    <Content Include="Views\AdminServices\Index.cshtml" />
+    <Content Include="Views\AdminServices\Create.cshtml" />
+    <Content Include="Views\AdminServices\Edit.cshtml" />
+    <Content Include="Views\AdminServices\Delete.cshtml" />
+    <Content Include="Views\Admin\AdminServices\Index.cshtml" />
+    <Content Include="Views\Admin\AdminServices\Create.cshtml" />
+    <Content Include="Views\Admin\AdminServices\Edit.cshtml" />
+    <Content Include="Views\Admin\AdminServices\Delete.cshtml" />
+    <Content Include="Views\Admin\AdminBlogPosts\Index.cshtml" />
+    <Content Include="Views\AdminBlogPosts\Index.cshtml" />
+    <Content Include="Views\AdminStylists\Index.cshtml" />
+    <Content Include="Views\AdminContacts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

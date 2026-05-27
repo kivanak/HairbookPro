@@ -1,0 +1,44 @@
+@model IEnumerable<Hairbookpro.Models.Stylist>
+
+@{
+    ViewBag.Title = "Manage Stylists";
+}
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="@Url.Action("Index", "AdminDashboard")">Admin</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Stylists</li>
+  </ol>
+</nav>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Stylists</h2>
+    <p class="mb-0">@Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })</p>
+ </div>
+
+<div class="card">
+  <div class="card-body">
+    <table class="table table-striped mb-0">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Specialization</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach(var s in Model)
+        {
+            <tr>
+                <td>@s.FullName</td>
+                <td>@s.Specialization</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = s.Id }, new { @class = "btn btn-sm btn-outline-secondary mr-2" })
+                    @Html.ActionLink("Delete", "Delete", new { id = s.Id }, new { @class = "btn btn-sm btn-danger" })
+                </td>
+            </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
