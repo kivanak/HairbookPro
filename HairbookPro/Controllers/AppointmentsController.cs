@@ -1,9 +1,10 @@
-using System;
-using System.Data.Entity;
-using System.Linq;
-using System.Web.Mvc;
 using Hairbookpro.Models;
 using Microsoft.AspNet.Identity;
+using System;
+using System.Data.Entity;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Hairbookpro.Controllers
 {
@@ -60,33 +61,25 @@ namespace Hairbookpro.Controllers
             ModelState.Remove("UserId");
             ModelState.Remove("Status");
 
-            var taken = db.Appointments.Any(a =>
-                a.StylistId == appointment.StylistId &&
-                a.AppointmentDate == appointment.AppointmentDate &&
-                a.Status != "Cancelled");
-
-            if (taken)
-            {
-                ModelState.AddModelError("", "Izabrani termin je već zauzet.");
-            }
-
-            // DEBUG
-            if (!ModelState.IsValid)
-            {
-                var errors = ModelState.Values
-                    .SelectMany(v => v.Errors)
-                    .Select(e => e.ErrorMessage)
-                    .ToList();
-
-                ViewBag.Errors = errors;
-            }
-
             if (ModelState.IsValid)
             {
-                db.Appointments.Add(appointment);
-                db.SaveChanges();
+                try
+                {
+                    db.Database.ExecuteSqlCommand(
+                        "EXEC dbo.sp_CreateAppointment @UserId, @ServiceId, @StylistId, @AppointmentDate, @Note",
+                        new SqlParameter("@UserId", appointment.UserId),
+                        new SqlParameter("@ServiceId", appointment.ServiceId),
+                        new SqlParameter("@StylistId", appointment.StylistId),
+                        new SqlParameter("@AppointmentDate", appointment.AppointmentDate),
+                        new SqlParameter("@Note", (object)appointment.Note ?? DBNull.Value)
+                    );
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                catch (SqlException ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
             }
 
             ViewBag.ServiceId = new SelectList(

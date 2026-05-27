@@ -169,6 +169,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Admin\AdminAppointmentController.cs" />
     <Compile Include="Controllers\Admin\AdminBlogPostsController.cs" />
     <Compile Include="Controllers\Admin\AdminContactsController.cs" />
     <Compile Include="Controllers\Admin\AdminDashboardController.cs" />
@@ -213,6 +214,7 @@
     <Content Include="Views\AdminServices\Edit.cshtml" />
     <Content Include="Views\AdminBlogPosts\Create.cshtml" />
     <Content Include="Views\AdminBlogPosts\Edit.cshtml" />
+    <Content Include="Views\AdminAppointments\Index.cshtml" />
     <None Include="Views\AdminServices\Index.cshtml" />
     <Content Include="Views\Stylists\Index.cshtml" />
     <Content Include="Views\AdminStylists\Create.cshtml" />
