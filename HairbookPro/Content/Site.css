@@ -1308,3 +1308,25 @@ textarea.form-control {
     line-height: 1.6;
     max-width: 420px;
 }
+
+.appointments-summary-card {
+    background: linear-gradient(135deg, #ffffff 0%, #fff0ed 100%);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    padding: 32px;
+    margin-bottom: 28px;
+    box-shadow: 0 18px 42px rgba(80, 40, 50, 0.08);
+}
+
+    .appointments-summary-card h2 {
+        font-size: 30px;
+        font-weight: 850;
+        margin-top: 14px;
+        margin-bottom: 16px;
+    }
+
+.appointments-total-number {
+    font-size: 64px;
+    font-weight: 900;
+    color: var(--primary-dark);
+}

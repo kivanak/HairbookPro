@@ -7,6 +7,16 @@
     <h2>Moji termini</h2>
     @Html.ActionLink("Novi termin", "Create", null, new { @class = "btn btn-primary mb-3" })
 
+    <div class="appointments-summary-card">
+        <span class="home-eyebrow">Statistika</span>
+
+        <h2>Ukupan broj vaših termina</h2>
+
+        <div class="appointments-total-number">
+            @ViewBag.TotalAppointments
+        </div>
+    </div>
+
     <div class="table-responsive">
         <table class="table table-striped">
             <tr>

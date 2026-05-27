@@ -25,6 +25,13 @@ namespace Hairbookpro.Controllers
                 .OrderByDescending(a => a.AppointmentDate)
                 .ToList();
 
+            var totalAppointments = db.Database.SqlQuery<int>(
+                "SELECT dbo.fn_GetUserAppointmentCount(@UserId)",
+                new SqlParameter("@UserId", userId)
+            ).FirstOrDefault();
+
+            ViewBag.TotalAppointments = totalAppointments;
+
             return View(appointments);
         }
 
