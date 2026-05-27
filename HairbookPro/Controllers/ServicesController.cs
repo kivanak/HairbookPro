@@ -1,8 +1,10 @@
+using Hairbookpro.Models;
+using System;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using Hairbookpro.Models;
 
 namespace Hairbookpro.Controllers
 {
@@ -36,25 +38,23 @@ namespace Hairbookpro.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Search(ServiceSearchViewModel model)
         {
-            var query = db.Services.Include(s => s.ServiceCategory).Where(s => s.IsActive);
+            var results = db.Database.SqlQuery<Service>(
+                "EXEC dbo.sp_SearchServices @Query, @CategoryId, @MinPrice, @MaxPrice, @MaxDurationMinutes",
+                new SqlParameter("@Query", (object)model.Query ?? DBNull.Value),
+                new SqlParameter("@CategoryId", (object)model.CategoryId ?? DBNull.Value),
+                new SqlParameter("@MinPrice", (object)model.MinPrice ?? DBNull.Value),
+                new SqlParameter("@MaxPrice", (object)model.MaxPrice ?? DBNull.Value),
+                new SqlParameter("@MaxDurationMinutes", (object)model.MaxDurationMinutes ?? DBNull.Value)
+            ).ToList();
 
-            if (!string.IsNullOrWhiteSpace(model.Query))
-                query = query.Where(s => s.Name.Contains(model.Query) || s.Description.Contains(model.Query));
+            model.Results = results;
 
-            if (model.CategoryId.HasValue)
-                query = query.Where(s => s.ServiceCategoryId == model.CategoryId.Value);
-
-            if (model.MinPrice.HasValue)
-                query = query.Where(s => s.Price >= model.MinPrice.Value);
-
-            if (model.MaxPrice.HasValue)
-                query = query.Where(s => s.Price <= model.MaxPrice.Value);
-
-            if (model.MaxDurationMinutes.HasValue)
-                query = query.Where(s => s.DurationMinutes <= model.MaxDurationMinutes.Value);
-
-            model.Results = query.OrderBy(s => s.Price).ToList();
-            ViewBag.CategoryId = new SelectList(db.ServiceCategories, "Id", "Name", model.CategoryId);
+            ViewBag.CategoryId = new SelectList(
+                db.ServiceCategories,
+                "Id",
+                "Name",
+                model.CategoryId
+            );
 
             return View(model);
         }
