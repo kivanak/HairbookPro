@@ -1267,3 +1267,35 @@ textarea.form-control {
         grid-template-columns: 1fr;
     }
 }
+
+
+
+.review-card {
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    text-align: left;
+}
+
+    .review-card h5 {
+        font-size: 16px;
+        font-weight: 750;
+        margin-bottom: 12px;
+        color: var(--primary-dark);
+    }
+
+.stylist-rating {
+    display: inline-block;
+    background: #fff0ed;
+    color: var(--primary-dark);
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-weight: 700;
+    margin: 14px 0;
+}
+
+.review-login-message {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+}

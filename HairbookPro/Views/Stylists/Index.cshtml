@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "Frizeri";
+
+    var ratings = ViewBag.Ratings as Dictionary<int, decimal>;
 }
 
 <section class="page-header salon-page-header">
@@ -14,6 +16,20 @@
         bojenju, stilizovanju i tretmanima za njegu kose.
     </p>
 </section>
+
+@if (TempData["ReviewSuccess"] != null)
+{
+    <div class="alert alert-success mb-4">
+        @TempData["ReviewSuccess"]
+    </div>
+}
+
+@if (TempData["ReviewError"] != null)
+{
+    <div class="alert alert-danger mb-4">
+        @TempData["ReviewError"]
+    </div>
+}
 
 <section class="stylists-grid">
     @foreach (var stylist in Model)
@@ -29,16 +45,68 @@
                 @stylist.Specialization
             </span>
 
+            <div class="stylist-rating">
+                ⭐ Prosječna ocjena:
+                <strong>
+                    @(ratings != null && ratings.ContainsKey(stylist.Id)
+                        ? ratings[stylist.Id].ToString("0.00")
+                        : "0.00")
+                </strong>
+            </div>
+
             <p>
                 @stylist.Bio
             </p>
 
-            <div class="stylist-actions">
-                <a href='@Url.Action("Create", "Appointments")'
+            <div class="stylist-actions mb-3">
+                <a href='@Url.Action("Create", "Appointments", new { serviceId = "" })'
                    class="btn btn-primary btn-sm">
                     Zakaži termin
                 </a>
             </div>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="review-card">
+                    <h5>Ocijeni frizera</h5>
+
+                    @using (Html.BeginForm("AddReview", "Stylists", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        @Html.Hidden("stylistId", stylist.Id)
+
+                        <div class="mb-2">
+                            <select name="rating" class="form-control">
+                                <option value="5">5 - Odlično</option>
+                                <option value="4">4 - Vrlo dobro</option>
+                                <option value="3">3 - Dobro</option>
+                                <option value="2">2 - Slabo</option>
+                                <option value="1">1 - Loše</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-2">
+                            <textarea name="comment"
+                                      class="form-control"
+                                      rows="3"
+                                      placeholder="Komentar o frizeru..."></textarea>
+                        </div>
+
+                        <button class="btn btn-outline-secondary btn-sm w-100">
+                            Pošalji ocjenu
+                        </button>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="review-login-message">
+                    <small class="text-muted">
+                        Prijavite se da biste ocijenili frizera.
+                    </small>
+                </div>
+            }
         </div>
     }
 </section>
