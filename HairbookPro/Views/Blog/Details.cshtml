@@ -1,32 +1,86 @@
 @model Hairbookpro.Models.BlogPost
+
 @{
     ViewBag.Title = Model.Title;
 }
 
-<div class="container mt-4">
-    <h2>@Model.Title</h2>
-    <p><small>@Model.CreatedAt.ToShortDateString() | @Model.BlogCategory.Name</small></p>
-    <p>@Model.Content</p>
+<section class="blog-details">
+    <div class="blog-details-card">
+        <span class="blog-category">
+            @(Model.BlogCategory != null ? Model.BlogCategory.Name : "Blog")
+        </span>
 
-    <hr />
-    <h4>Komentari</h4>
+        <h1>@Model.Title</h1>
 
-    @foreach (var comment in Model.Comments.OrderByDescending(c => c.CreatedAt))
-    {
-        <div class="border rounded p-2 mb-2">
-            <p>@comment.Content</p>
-            <small>@comment.CreatedAt</small>
+        <div class="blog-meta mb-4">
+            <span>📅 @Model.CreatedAt.ToString("dd.MM.yyyy")</span>
         </div>
-    }
 
-    @if (User.Identity.IsAuthenticated)
-    {
-        using (Html.BeginForm("AddComment", "Blog", FormMethod.Post))
+        <div class="blog-content">
+            @Model.Content
+        </div>
+    </div>
+</section>
+
+<section class="comments-section">
+    <div class="comments-card">
+        <h3>Komentari</h3>
+
+        @if (Model.Comments != null && Model.Comments.Any())
         {
-            @Html.AntiForgeryToken()
-            @Html.Hidden("blogPostId", Model.Id)
-            <textarea name="content" class="form-control mb-2" placeholder="Unesi komentar"></textarea>
-            <button class="btn btn-primary">Dodaj komentar</button>
+            foreach (var comment in Model.Comments.OrderByDescending(c => c.CreatedAt))
+            {
+                <div class="comment-modern">
+                    <div class="comment-modern__top">
+                        <div>
+                            <strong>
+                                @(comment.User != null ? comment.User.Email : "Nepoznat korisnik")
+                            </strong>
+
+                            <span class="comment-date">
+                                @comment.CreatedAt.ToString("dd.MM.yyyy HH:mm")
+                            </span>
+                        </div>
+                    </div>
+
+                    <p>@comment.Content</p>
+                </div>
+            }
         }
-    }
-</div>
+        else
+        {
+            <p class="text-muted">Nema komentara.</p>
+        }
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <hr />
+
+            <h4>Dodajte komentar</h4>
+
+            using (Html.BeginForm("AddComment", "Blog", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.Hidden("blogPostId", Model.Id)
+
+                <div class="form-group mb-3">
+                    <textarea name="content"
+                              class="form-control"
+                              rows="5"
+                              placeholder="Unesite komentar..."></textarea>
+                </div>
+
+                <button class="btn btn-primary">
+                    Objavi komentar
+                </button>
+            }
+        }
+        else
+        {
+            <div class="alert alert-light mt-4">
+                Morate biti prijavljeni kako biste komentarisali.
+            </div>
+        }
+    </div>
+</section>

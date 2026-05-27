@@ -1,65 +1,66 @@
-﻿@using Hairbookpro.Models
-@model LoginViewModel
+﻿@model Hairbookpro.Models.LoginViewModel
+
 @{
-    ViewBag.Title = "Log in";
+    ViewBag.Title = "Prijava";
 }
 
-<main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
-    <div class="row">
-        <div class="col-md-8">
-            <section id="loginForm">
-                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <div class="auth-header">
+            <span class="home-eyebrow">HairBookPro</span>
+            <h1>Prijava</h1>
+            <p>Prijavite se kako biste zakazali termin i upravljali svojim rezervacijama.</p>
+        </div>
+
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "auth-form" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
+
+            <div class="form-group mb-3">
+                <label>Email adresa</label>
+                @Html.TextBoxFor(m => m.Email, new
                 {
-                    @Html.AntiForgeryToken()
-                    <h4>Use a local account to log in.</h4>
-                    <hr />
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="row">
-                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="row">
-                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label" })
-                        <div class="col-md-10">
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="offset-md-2 col-md-10">
-                            <div class="checkbox">
-                                @Html.CheckBoxFor(m => m.RememberMe)
-                                @Html.LabelFor(m => m.RememberMe)
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="offset-md-2 col-md-10">
-                            <input type="submit" value="Log in" class="btn btn-outline-dark" />
-                        </div>
-                    </div>
-                    <p>
-                        @Html.ActionLink("Register as a new user", "Register")
-                    </p>
-                    @* Enable this once you have account confirmation enabled for password reset functionality
-                        <p>
-                            @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                        </p>*@
-                }
-            </section>
-        </div>
-        <div class="col-md-4">
-            <section id="socialLoginForm">
-                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-            </section>
-        </div>
-    </div>
-</main>
+                    @class = "form-control",
+                    placeholder = "Unesite email adresu"
+                })
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group mb-3">
+                <label>Lozinka</label>
+
+                @Html.PasswordFor(m => m.Password, new
+                {
+                    @class = "form-control",
+                    placeholder = "Unesite lozinku"
+                })
+
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-check mb-4">
+                @Html.CheckBoxFor(m => m.RememberMe, new { @class = "form-check-input" })
+
+                <label class="form-check-label">
+                    Zapamti me
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg w-100">
+                Prijavi se
+            </button>
+
+            <div class="auth-footer">
+                <span>Nemate nalog?</span>
+
+                @Html.ActionLink("Registrujte se", "Register", null, new
+                {
+                    @class = "auth-link"
+                })
+            </div>
+        }
+    </div>
+</div>

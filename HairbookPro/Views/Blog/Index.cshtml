@@ -1,20 +1,47 @@
 @model IEnumerable<Hairbookpro.Models.BlogPost>
+
 @{
     ViewBag.Title = "Blog";
 }
 
-<div class="container mt-4">
-    <h2>Blog</h2>
+<section class="page-header salon-page-header">
+    <span class="home-eyebrow">Savjeti i inspiracija</span>
 
+    <h1>Blog HairBookPro salona</h1>
+
+    <p>
+        Savjeti za njegu kose, moderne frizure i preporuke našeg stručnog tima.
+    </p>
+</section>
+
+<section class="blog-grid">
     @foreach (var post in Model)
     {
-        <div class="card mb-3">
-            <div class="card-body">
-                <h4>@post.Title</h4>
-                <p><small>@post.CreatedAt.ToShortDateString() | @post.BlogCategory.Name</small></p>
-                <p>@(post.Content.Length > 200 ? post.Content.Substring(0, 200) + "..." : post.Content)</p>
-                @Html.ActionLink("Pročitaj", "Details", new { id = post.Id }, new { @class = "btn btn-primary" })
+        <article class="blog-card-modern">
+            <div class="blog-card-modern__content">
+                <span class="blog-category">
+                    @(post.BlogCategory != null ? post.BlogCategory.Name : "Blog")
+                </span>
+
+                <h2>@post.Title</h2>
+
+                <p>
+                    @(post.Content.Length > 180
+                        ? post.Content.Substring(0, 180) + "..."
+                        : post.Content)
+                </p>
+
+                <div class="blog-meta">
+                    <span>
+                        📅 @post.CreatedAt.ToString("dd.MM.yyyy")
+                    </span>
+                </div>
+
+                <a href='@Url.Action("Details", "Blog", new { id = post.Id })'
+                   class="btn btn-primary">
+                    Pročitaj tekst
+                </a>
             </div>
-        </div>
+        </article>
     }
-</div>
+</section>
