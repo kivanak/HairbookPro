@@ -1,44 +1,51 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="sr">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    <style>
-        .hero { background-size: cover; background-position: center; }
-        .body-content { padding-top: 2rem; padding-bottom: 2rem; }
-    </style>
-    @Scripts.Render("~/bundles/modernizr")
+    <title>@ViewBag.Title - HairBookPro</title>
 
+    @Styles.Render("~/Content/css")
+
+    @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+    <nav class="navbar navbar-expand-lg navbar-light salon-navbar">
         <div class="container">
-            @Html.ActionLink("Hairbookpro", "Index", "Home", new { area = "" }, new { @class = "navbar-brand fw-bold text-primary" })
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+            <a href="@Url.Action("Index","Home")"
+               class="navbar-brand"
+               style="color:#8f4d58 !important; font-weight:800; font-size:26px;">
+                Hair<span style="color:#b76e79;">Book</span>Pro
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="mainNav">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">@Html.ActionLink("Services", "Index", "Services", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Stylists", "Index", "Stylists", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Početna", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Usluge", "Index", "Services", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Frizeri", "Index", "Stylists", new { area = "" }, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Blog", "Index", "Blog", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Contact", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Moji termini", "Index", "Appointments", new { area = "" }, new { @class = "nav-link" })</li>
                 </ul>
+
                 <div class="d-flex align-items-center">
                     @if (User != null && User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                     {
                         <ul class="navbar-nav mr-3">
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
-                                    <a class="dropdown-item" href='@Url.Action("Index","AdminServices")'>Manage Services</a>
-                                    <a class="dropdown-item" href='@Url.Action("Index","AdminBlogPosts")'>Manage Posts</a>
-                                    <a class="dropdown-item" href='@Url.Action("Index","AdminStylists")'>Manage Stylists</a>
-                                    <a class="dropdown-item" href='@Url.Action("Index","AdminContacts")'>Contact Messages</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href='@Url.Action("Index","AdminDashboard")'>Admin Dashboard</a>
+                                <a class="nav-link dropdown-toggle admin-link" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown">
+                                    Administracija
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-end salon-dropdown" aria-labelledby="adminMenu">
+                                    <a class="dropdown-item" href='@Url.Action("Index","AdminDashboard")'>Kontrolna tabla</a>
+                                    <a class="dropdown-item" href='@Url.Action("Index","AdminServices")'>Usluge</a>
+                                    <a class="dropdown-item" href='@Url.Action("Index","AdminBlogPosts")'>Blog objave</a>
+                                    <a class="dropdown-item" href='@Url.Action("Index","AdminStylists")'>Frizeri</a>
+                                    <a class="dropdown-item" href='@Url.Action("Index","AdminContacts")'>Poruke korisnika</a>
                                 </div>
                             </li>
                         </ul>
@@ -49,13 +56,16 @@
             </div>
         </div>
     </nav>
-    <div class="container body-content">
+
+    <main class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    </main>
+
+    <footer class="salon-footer">
+        <div class="container">
+            <p>&copy; @DateTime.Now.Year HairBookPro — frizerski salon i online zakazivanje termina.</p>
+        </div>
+    </footer>
 
     <script src="@Url.Content("~/Scripts/jquery-3.7.0.js")"></script>
     <script src="@Url.Content("~/Scripts/bootstrap.bundle.js")"></script>

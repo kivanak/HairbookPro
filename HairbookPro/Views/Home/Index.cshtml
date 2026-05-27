@@ -1,156 +1,141 @@
 ﻿@{
-    ViewBag.Title = "Home";
+    ViewBag.Title = "Početna";
 }
 
-<section class="hero">
-    <div class="hero-overlay"></div>
-    <div class="container">
-        <div class="row align-items-center hero-content text-center text-md-left">
-            <div class="col-md-7 text-white">
-                <h1 class="display-4">HairBookPro</h1>
-                <p class="lead">Profesionalne frizerske usluge — rezervirajte online, upoznajte naše stiliste.</p>
-                <p class="mb-4">
-                    <a href='@Url.Action("Index", "Services")' class="btn btn-light btn-lg mr-2">Pregled usluga</a>
-                    <a href='@Url.Action("Create", "Appointments")' class="btn btn-outline-light btn-lg">Rezerviši termin</a>
-                </p>
-            </div>
-            <div class="col-md-5">
-                <div class="card shadow-sm booking-card">
-                    <div class="card-body">
-                        <h5 class="card-title">Brzo zakazivanje</h5>
-                        <form action='@Url.Action("Create", "Appointments")' method="get">
-                            <div class="form-group">
-                                <label class="sr-only">Usluga</label>
-                                <select class="form-control" name="ServiceId">
-                                    <option value="">Izaberite uslugu</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="sr-only">Datum</label>
-                                <input class="form-control" type="date" name="Date" />
-                            </div>
-                            <button class="btn btn-primary btn-block">Počni rezervaciju</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+<section class="home-hero">
+    <div class="home-hero__content">
+        <span class="home-eyebrow">Frizerski salon & online zakazivanje</span>
+
+        <h1>Ljepota kose počinje dobrim terminom.</h1>
+
+        <p>
+            HairBookPro vam omogućava da pregledate usluge, upoznate naš tim frizera
+            i brzo zakažete termin u salonu.
+        </p>
+
+        <div class="home-hero__actions">
+            <a href='@Url.Action("Index", "Services")' class="btn btn-primary btn-lg">Pogledaj usluge</a>
+            <a href='@Url.Action("Create", "Appointments")' class="btn btn-outline-secondary btn-lg">Zakaži termin</a>
         </div>
+    </div>
+
+    <div class="home-booking-card">
+        <h5>Brzo zakazivanje</h5>
+        <p>Izaberite uslugu i datum, a zatim nastavite na formu za termin.</p>
+
+        <form action='@Url.Action("Create", "Appointments")' method="get">
+            <div class="form-group">
+                <label>Usluga</label>
+                <select class="form-control" name="ServiceId">
+                    <option value="">Izaberite uslugu</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Datum</label>
+                <input class="form-control" type="date" name="Date" />
+            </div>
+
+            <button class="btn btn-primary btn-block">Nastavi zakazivanje</button>
+        </form>
     </div>
 </section>
 
-<main class="container py-5">
-    <section class="mb-5">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="mb-0">Popularne usluge</h2>
-            <a class="btn btn-link" href='@Url.Action("Index", "Services")'>Pogledaj sve</a>
+<main class="home-content">
+    <section class="home-section">
+        <div class="home-section__header">
+            <div>
+                <span class="home-eyebrow">Naša ponuda</span>
+                <h2>Popularne usluge</h2>
+            </div>
+            <a href='@Url.Action("Index", "Services")' class="btn btn-outline-secondary">Pogledaj sve</a>
         </div>
-        <div class="row">
-            <div class="col-sm-6 col-md-3 mb-4">
-                <div class="card h-100 service-card">
-                    <div class="card-body">
-                        <h5 class="card-title">Žensko šišanje</h5>
-                        <p class="card-text">Profesionalno šišanje i stilizovanje.</p>
-                    </div>
-                    <div class="card-footer bg-white">
-                        <small class="text-muted">45 min • 20 €</small>
-                    </div>
-                </div>
+
+        <div class="home-grid home-grid--four">
+            <div class="home-card">
+                <div class="home-card__icon">✂</div>
+                <h5>Žensko šišanje</h5>
+                <p>Profesionalno šišanje i stilizovanje prema obliku lica.</p>
+                <span>45 min • 20 €</span>
             </div>
-            <div class="col-sm-6 col-md-3 mb-4">
-                <div class="card h-100 service-card">
-                    <div class="card-body">
-                        <h5 class="card-title">Muško šišanje</h5>
-                        <p class="card-text">Klasično i moderno šišanje.</p>
-                    </div>
-                    <div class="card-footer bg-white">
-                        <small class="text-muted">30 min • 12 €</small>
-                    </div>
-                </div>
+
+            <div class="home-card">
+                <div class="home-card__icon">💈</div>
+                <h5>Muško šišanje</h5>
+                <p>Klasično i moderno šišanje uz preciznu završnu obradu.</p>
+                <span>30 min • 12 €</span>
             </div>
-            <div class="col-sm-6 col-md-3 mb-4">
-                <div class="card h-100 service-card">
-                    <div class="card-body">
-                        <h5 class="card-title">Balayage</h5>
-                        <p class="card-text">Moderna tehnika bojenja za prirodan izgled.</p>
-                    </div>
-                    <div class="card-footer bg-white">
-                        <small class="text-muted">180 min • 80 €</small>
-                    </div>
-                </div>
+
+            <div class="home-card">
+                <div class="home-card__icon">🎨</div>
+                <h5>Balayage</h5>
+                <p>Moderna tehnika bojenja za prirodan i elegantan izgled.</p>
+                <span>180 min • 80 €</span>
             </div>
-            <div class="col-sm-6 col-md-3 mb-4">
-                <div class="card h-100 service-card">
-                    <div class="card-body">
-                        <h5 class="card-title">Keratin tretman</h5>
-                        <p class="card-text">Obnova i zaglađivanje kose.</p>
-                    </div>
-                    <div class="card-footer bg-white">
-                        <small class="text-muted">120 min • 60 €</small>
-                    </div>
-                </div>
+
+            <div class="home-card">
+                <div class="home-card__icon">✨</div>
+                <h5>Keratin tretman</h5>
+                <p>Obnova, zaglađivanje i dubinska njega oštećene kose.</p>
+                <span>120 min • 60 €</span>
             </div>
         </div>
     </section>
 
-    <section class="mb-5">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="mb-0">Upoznajte naše stiliste</h2>
-            <a class="btn btn-link" href='@Url.Action("Index", "Stylists")'>Upoznajte tim</a>
+    <section class="home-section">
+        <div class="home-section__header">
+            <div>
+                <span class="home-eyebrow">Naš tim</span>
+                <h2>Upoznajte frizere</h2>
+            </div>
+            <a href='@Url.Action("Index", "Stylists")' class="btn btn-outline-secondary">Upoznajte tim</a>
         </div>
-        <div class="row">
-            <div class="col-sm-6 col-md-4 mb-4">
-                <div class="card h-100 stylist-card">
-                    <div class="card-body">
-                        <h5 class="card-title">Ana Petrović</h5>
-                        <p class="card-text">Šišanje i feniranje — 8 godina iskustva</p>
-                    </div>
-                </div>
+
+        <div class="home-grid home-grid--three">
+            <div class="home-card stylist-card">
+                <h5>Ana Petrović</h5>
+                <p>Šišanje i feniranje — 8 godina iskustva.</p>
             </div>
-            <div class="col-sm-6 col-md-4 mb-4">
-                <div class="card h-100 stylist-card">
-                    <div class="card-body">
-                        <h5 class="card-title">Marko Jovanović</h5>
-                        <p class="card-text">Specijalista za bojenje — balayage &amp; color</p>
-                    </div>
-                </div>
+
+            <div class="home-card stylist-card">
+                <h5>Marko Jovanović</h5>
+                <p>Specijalista za bojenje, balayage i moderne color tehnike.</p>
             </div>
-            <div class="col-sm-6 col-md-4 mb-4">
-                <div class="card h-100 stylist-card">
-                    <div class="card-body">
-                        <h5 class="card-title">Milica Kovač</h5>
-                        <p class="card-text">Tretmani i obnova kose</p>
-                    </div>
-                </div>
+
+            <div class="home-card stylist-card">
+                <h5>Milica Kovač</h5>
+                <p>Tretmani, njega i obnova oštećene kose.</p>
             </div>
         </div>
     </section>
 
-    <section class="mb-5">
-        <h2>Iz bloga</h2>
-        <div class="row">
-            <div class="col-md-6 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Kako njegovati kosu tokom ljeta</h5>
-                        <p class="card-text text-muted">Koristite hidratantne maske i zaštitu od sunca...</p>
-                        <a href='@Url.Action("Index", "Blog")' class="btn btn-sm btn-outline-secondary">Pročitaj</a>
-                    </div>
-                </div>
+    <section class="home-section">
+        <div class="home-section__header">
+            <div>
+                <span class="home-eyebrow">Savjeti i inspiracija</span>
+                <h2>Iz bloga</h2>
             </div>
-            <div class="col-md-6 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Top frizure ove sezone</h5>
-                        <p class="card-text text-muted">Prirodni talasi i slojevito šišanje dominiraju...</p>
-                        <a href='@Url.Action("Index", "Blog")' class="btn btn-sm btn-outline-secondary">Pročitaj</a>
-                    </div>
-                </div>
+            <a href='@Url.Action("Index", "Blog")' class="btn btn-outline-secondary">Svi tekstovi</a>
+        </div>
+
+        <div class="home-grid home-grid--two">
+            <div class="home-card">
+                <h5>Kako njegovati kosu tokom ljeta</h5>
+                <p>Koristite hidratantne maske, zaštitu od sunca i redovno skraćujte krajeve.</p>
+                <a href='@Url.Action("Index", "Blog")' class="btn btn-sm btn-primary">Pročitaj</a>
+            </div>
+
+            <div class="home-card">
+                <h5>Top frizure ove sezone</h5>
+                <p>Prirodni talasi, slojevito šišanje i nježne nijanse dominiraju ove sezone.</p>
+                <a href='@Url.Action("Index", "Blog")' class="btn btn-sm btn-primary">Pročitaj</a>
             </div>
         </div>
     </section>
 
-    <section class="text-center py-5 cta-section">
-        <h3>Spremni za promjenu?</h3>
-        <p><a href='@Url.Action("Create", "Appointments")' class="btn btn-success btn-lg">Rezerviši termin</a></p>
+    <section class="home-cta">
+        <span class="home-eyebrow">Spremni za promjenu?</span>
+        <h3>Zakažite termin i prepustite kosu stručnom timu.</h3>
+        <a href='@Url.Action("Create", "Appointments")' class="btn btn-primary btn-lg">Zakaži termin</a>
     </section>
 </main>
