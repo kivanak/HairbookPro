@@ -1,0 +1,44 @@
+@model Hairbookpro.Models.BlogPost
+
+@{
+    ViewBag.Title = "Dodavanje blog objave";
+}
+
+<section class="admin-form-wrapper">
+    <div class="admin-form-card">
+        <div class="admin-form-header">
+            <span class="home-eyebrow">Administracija</span>
+            <h1>Dodavanje blog objave</h1>
+            <p>Dodajte novi tekst za korisnike salona.</p>
+        </div>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger mb-4" })
+
+            <div class="mb-3">
+                <label>Naslov</label>
+                @Html.TextBoxFor(m => m.Title, new { @class = "form-control", placeholder = "npr. Kako njegovati kosu tokom ljeta" })
+                @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                <label>Kategorija</label>
+                @Html.DropDownList("BlogCategoryId", null, "Izaberite kategoriju", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.BlogCategoryId, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-4">
+                <label>Sadržaj</label>
+                @Html.TextAreaFor(m => m.Content, new { @class = "form-control", rows = 10, placeholder = "Unesite sadržaj blog objave..." })
+                @Html.ValidationMessageFor(m => m.Content, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="admin-form-actions">
+                <button class="btn btn-primary btn-lg">Sačuvaj objavu</button>
+                <a href='@Url.Action("Index")' class="btn btn-outline-secondary btn-lg">Nazad</a>
+            </div>
+        }
+    </div>
+</section>

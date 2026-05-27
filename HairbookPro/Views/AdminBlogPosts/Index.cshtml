@@ -1,45 +1,84 @@
 @model IEnumerable<Hairbookpro.Models.BlogPost>
 
 @{
-    ViewBag.Title = "Manage Blog Posts";
+    ViewBag.Title = "Administracija bloga";
 }
 
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="@Url.Action("Index", "AdminDashboard")">Admin</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Blog Posts</li>
-  </ol>
-</nav>
+<section class="admin-page-header">
+    <div>
+        <span class="home-eyebrow">Administracija</span>
+        <h1>Upravljanje blog objavama</h1>
+        <p>Dodavanje, izmjena i brisanje tekstova na blogu.</p>
+    </div>
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h2 class="mb-0">Blog Posts</h2>
-    <p class="mb-0">@Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })</p>
- </div>
+    <div>
+        @Html.ActionLink("➕ Dodaj objavu", "Create", null, new { @class = "btn btn-primary btn-lg" })
+    </div>
+</section>
 
-<div class="card">
-  <div class="card-body">
-    <table class="table table-striped mb-0">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Category</th>
-          <th>Created</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach(var p in Model){
-            <tr>
-                <td>@p.Title</td>
-                <td>@(p.BlogCategory != null ? p.BlogCategory.Name : "")</td>
-                <td>@p.CreatedAt.ToString("g")</td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = p.Id }, new { @class = "btn btn-sm btn-outline-secondary mr-2" })
-                    @Html.ActionLink("Delete", "Delete", new { id = p.Id }, new { @class = "btn btn-sm btn-danger" })
-                </td>
-            </tr>
-        }
-      </tbody>
-    </table>
-  </div>
+<div class="admin-table-card">
+    <div class="table-responsive">
+        <table class="table align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Naslov</th>
+                    <th>Kategorija</th>
+                    <th>Datum</th>
+                    <th class="text-end">Akcije</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var post in Model)
+                {
+                    <tr>
+                        <td>
+                            <strong>@post.Title</strong>
+                            <small class="d-block text-muted">
+                                @(post.Content.Length > 90 ? post.Content.Substring(0, 90) + "..." : post.Content)
+                            </small>
+                        </td>
+                        <td>@(post.BlogCategory != null ? post.BlogCategory.Name : "Bez kategorije")</td>
+                        <td>@post.CreatedAt.ToString("dd.MM.yyyy")</td>
+                        <td class="text-end">
+                            @Html.ActionLink("Izmijeni", "Edit", new { id = post.Id }, new { @class = "btn btn-sm btn-primary me-2" })
+
+                            <button class="btn btn-sm btn-danger"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deletePostModal-@post.Id">
+                                Obriši
+                            </button>
+
+                            <div class="modal fade" id="deletePostModal-@post.Id" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content salon-modal">
+                                        <div class="modal-header border-0">
+                                            <h5 class="modal-title">Brisanje blog objave</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <p>Da li ste sigurni da želite obrisati objavu:</p>
+                                            <strong>@post.Title</strong>
+                                        </div>
+
+                                        <div class="modal-footer border-0">
+                                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                                Otkaži
+                                            </button>
+
+                                            @using (Html.BeginForm("Delete", "AdminBlogPosts", new { id = post.Id }, FormMethod.Post))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="btn btn-danger">Obriši</button>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

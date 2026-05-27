@@ -211,6 +211,8 @@
     <Compile Include="Startup.cs" />
     <Content Include="Views\AdminServices\Create.cshtml" />
     <Content Include="Views\AdminServices\Edit.cshtml" />
+    <Content Include="Views\AdminBlogPosts\Create.cshtml" />
+    <Content Include="Views\AdminBlogPosts\Edit.cshtml" />
     <None Include="Views\AdminServices\Index.cshtml" />
     <Content Include="Views\Stylists\Index.cshtml" />
     <Content Include="Views\AdminStylists\Create.cshtml" />
