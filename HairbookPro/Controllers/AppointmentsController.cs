@@ -3,10 +3,10 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using HairBookPro.Models;
+using Hairbookpro.Models;
 using Microsoft.AspNet.Identity;
 
-namespace HairBookPro.Controllers
+namespace Hairbookpro.Controllers
 {
     [Authorize]
     public class AppointmentsController : Controller

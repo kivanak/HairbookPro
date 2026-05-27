@@ -1,5 +1,5 @@
 /*
-HairBookPro SQL objekti:
+Hairbookpro SQL objekti:
 - 2 triggera
 - 2 stored procedure
 - 2 funkcije

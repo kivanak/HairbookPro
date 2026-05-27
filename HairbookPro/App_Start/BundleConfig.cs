@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace HairbookPro
+namespace Hairbookpro
 {
     public class BundleConfig
     {

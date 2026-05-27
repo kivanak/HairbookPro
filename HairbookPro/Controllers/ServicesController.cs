@@ -2,9 +2,9 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using HairBookPro.Models;
+using Hairbookpro.Models;
 
-namespace HairBookPro.Controllers
+namespace Hairbookpro.Controllers
 {
     public class ServicesController : Controller
     {

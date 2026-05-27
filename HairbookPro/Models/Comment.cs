@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace HairBookPro.Models
+namespace Hairbookpro.Models
 {
     public class Comment
     {

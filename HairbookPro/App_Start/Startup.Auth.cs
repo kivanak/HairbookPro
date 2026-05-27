@@ -5,9 +5,9 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using HairbookPro.Models;
+using Hairbookpro.Models;
 
-namespace HairbookPro
+namespace Hairbookpro
 {
     public partial class Startup
     {

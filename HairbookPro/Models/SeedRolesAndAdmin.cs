@@ -4,7 +4,7 @@
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace HairBookPro.Models
+namespace Hairbookpro.Models
 {
     public static class SeedRolesAndAdmin
     {
@@ -19,7 +19,7 @@ namespace HairBookPro.Models
             if (!roleManager.RoleExists("User"))
                 roleManager.Create(new IdentityRole("User"));
 
-            var adminEmail = "admin@hairbookpro.com";
+            var adminEmail = "admin@Hairbookpro.com";
             var admin = userManager.FindByEmail(adminEmail);
 
             if (admin == null)

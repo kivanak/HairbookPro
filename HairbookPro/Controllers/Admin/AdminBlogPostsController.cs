@@ -3,9 +3,9 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using HairBookPro.Models;
+using Hairbookpro.Models;
 
-namespace HairBookPro.Controllers.Admin
+namespace Hairbookpro.Controllers.Admin
 {
     [Authorize(Roles = "Admin")]
     public class AdminBlogPostsController : Controller

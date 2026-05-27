@@ -6,9 +6,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using HairbookPro.Models;
+using Hairbookpro.Models;
 
-namespace HairbookPro.Controllers
+namespace Hairbookpro.Controllers
 {
     [Authorize]
     public class ManageController : Controller

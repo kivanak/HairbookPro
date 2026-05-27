@@ -1,8 +1,8 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(HairbookPro.Startup))]
-namespace HairbookPro
+[assembly: OwinStartupAttribute(typeof(Hairbookpro.Startup))]
+namespace Hairbookpro
 {
     public partial class Startup
     {

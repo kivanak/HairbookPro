@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace HairbookPro.Controllers
+namespace Hairbookpro.Controllers
 {
     public class HomeController : Controller
     {

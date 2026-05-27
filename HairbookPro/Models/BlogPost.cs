@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace HairBookPro.Models
+namespace Hairbookpro.Models
 {
     public class BlogPost
     {

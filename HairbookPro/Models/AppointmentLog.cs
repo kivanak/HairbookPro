@@ -1,6 +1,6 @@
 using System;
 
-namespace HairBookPro.Models
+namespace Hairbookpro.Models
 {
     public class AppointmentLog
     {
