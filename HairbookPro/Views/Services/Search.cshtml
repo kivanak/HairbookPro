@@ -1,19 +1,24 @@
 @model Hairbookpro.Models.ServiceSearchViewModel
+
 @{
     ViewBag.Title = "Detaljna pretraga";
 }
 
-<div class="container mt-4">
-    <h2>Detaljna pretraga usluga</h2>
+<section class="page-header salon-page-header">
+    <span class="home-eyebrow">Pretraga</span>
+    <h1>Detaljna pretraga usluga</h1>
+    <p>Filtrirajte usluge po nazivu, kategoriji, cijeni i trajanju tretmana.</p>
+</section>
 
+<section class="search-panel">
     @using (Html.BeginForm("Search", "Services", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
 
         <div class="row">
             <div class="col-md-4 mb-3">
-                @Html.LabelFor(m => m.Query)
-                @Html.TextBoxFor(m => m.Query, new { @class = "form-control" })
+                <label>Naziv ili opis usluge</label>
+                @Html.TextBoxFor(m => m.Query, new { @class = "form-control", placeholder = "npr. balayage, šišanje..." })
             </div>
 
             <div class="col-md-4 mb-3">
@@ -22,36 +27,49 @@
             </div>
 
             <div class="col-md-2 mb-3">
-                @Html.LabelFor(m => m.MinPrice)
+                <label>Min. cijena</label>
                 @Html.TextBoxFor(m => m.MinPrice, new { @class = "form-control", type = "number", step = "0.01" })
             </div>
 
             <div class="col-md-2 mb-3">
-                @Html.LabelFor(m => m.MaxPrice)
+                <label>Max. cijena</label>
                 @Html.TextBoxFor(m => m.MaxPrice, new { @class = "form-control", type = "number", step = "0.01" })
             </div>
         </div>
 
         <button class="btn btn-primary">Pretraži</button>
+        @Html.ActionLink("Nazad na usluge", "Index", null, new { @class = "btn btn-outline-secondary ml-2" })
     }
+</section>
 
-    @if (Model.Results != null)
-    {
-        <hr />
-        <h4>Rezultati</h4>
-        <div class="row">
+@if (Model.Results != null)
+{
+    <section class="home-section">
+        <div class="home-section__header">
+            <div>
+                <span class="home-eyebrow">Rezultati</span>
+                <h2>Pronađene usluge</h2>
+            </div>
+        </div>
+
+        <div class="services-grid">
             @foreach (var item in Model.Results)
             {
-                <div class="col-md-4 mb-3">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5>@item.Name</h5>
-                            <p>@item.Description</p>
-                            <strong>@item.Price.ToString("0.00") €</strong>
-                        </div>
+                <div class="service-card-modern">
+                    <div class="service-card-modern__top">
+                        <span>✂</span>
+                        <strong>@item.DurationMinutes min</strong>
+                    </div>
+
+                    <h3>@item.Name</h3>
+                    <p>@item.Description</p>
+
+                    <div class="service-card-modern__bottom">
+                        <strong>@item.Price.ToString("0.00") €</strong>
+                        @Html.ActionLink("Detalji", "Details", new { id = item.Id }, new { @class = "btn btn-sm btn-primary" })
                     </div>
                 </div>
             }
         </div>
-    }
-</div>
+    </section>
+}

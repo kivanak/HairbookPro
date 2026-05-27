@@ -1,12 +1,74 @@
 @model Hairbookpro.Models.Service
+
 @{
     ViewBag.Title = "Detalji usluge";
 }
 
-<div class="container mt-4">
-    <h2>@Model.Name</h2>
-    <p>@Model.Description</p>
-    <p><strong>Cijena:</strong> @Model.Price.ToString("0.00") €</p>
-    <p><strong>Trajanje:</strong> @Model.DurationMinutes min</p>
-    @Html.ActionLink("Zakaži termin", "Create", "Appointments", null, new { @class = "btn btn-success" })
-</div>
+<section class="service-details-hero">
+    <div class="service-details-hero__content">
+        <span class="home-eyebrow">Detalji usluge</span>
+
+        <h1>@Model.Name</h1>
+
+        <p>@Model.Description</p>
+
+        <div class="service-details-meta">
+            <div class="service-meta-box">
+                <span>⏱ Trajanje</span>
+                <strong>@Model.DurationMinutes min</strong>
+            </div>
+
+            <div class="service-meta-box">
+                <span>💶 Cijena</span>
+                <strong>@Model.Price.ToString("0.00") €</strong>
+            </div>
+
+            @if (Model.ServiceCategory != null)
+            {
+                <div class="service-meta-box">
+                    <span>✂ Kategorija</span>
+                    <strong>@Model.ServiceCategory.Name</strong>
+                </div>
+            }
+        </div>
+
+        <div class="service-details-actions">
+            <a href='@Url.Action("Create", "Appointments", new { serviceId = Model.Id })'
+               class="btn btn-primary btn-lg">
+                Zakaži termin
+            </a>
+
+            <a href='@Url.Action("Index", "Services")'
+               class="btn btn-outline-secondary btn-lg">
+                Nazad na usluge
+            </a>
+        </div>
+    </div>
+
+    <div class="service-details-side">
+        <div class="service-highlight-card">
+            <h4>Informacije o usluzi</h4>
+
+            <ul>
+                <li>Usluga: <strong>@Model.Name</strong></li>
+
+                @if (Model.ServiceCategory != null)
+                {
+                    <li>Kategorija: <strong>@Model.ServiceCategory.Name</strong></li>
+                }
+
+                <li>Trajanje: <strong>@Model.DurationMinutes min</strong></li>
+                <li>Cijena: <strong>@Model.Price.ToString("0.00") €</strong></li>
+
+                @if (Model.IsActive)
+                {
+                    <li>Status: <strong>Dostupna za zakazivanje</strong></li>
+                }
+                else
+                {
+                    <li>Status: <strong>Trenutno nije dostupna</strong></li>
+                }
+            </ul>
+        </div>
+    </div>
+</section>

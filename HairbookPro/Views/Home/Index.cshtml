@@ -1,4 +1,5 @@
-﻿@{
+﻿@model HairBookPro.Models.HomeViewModel
+@{
     ViewBag.Title = "Početna";
 }
 
@@ -28,6 +29,13 @@
                 <label>Usluga</label>
                 <select class="form-control" name="ServiceId">
                     <option value="">Izaberite uslugu</option>
+
+                    @foreach (var service in ViewBag.ServicesDropdown)
+                    {
+                        <option value="@service.Id">
+                            @service.Name
+                        </option>
+                    }
                 </select>
             </div>
 
@@ -52,33 +60,20 @@
         </div>
 
         <div class="home-grid home-grid--four">
-            <div class="home-card">
-                <div class="home-card__icon">✂</div>
-                <h5>Žensko šišanje</h5>
-                <p>Profesionalno šišanje i stilizovanje prema obliku lica.</p>
-                <span>45 min • 20 €</span>
-            </div>
+            @foreach (var item in Model.Services)
+            {
+                <div class="home-card">
+                    <div class="home-card__icon">✂</div>
 
-            <div class="home-card">
-                <div class="home-card__icon">💈</div>
-                <h5>Muško šišanje</h5>
-                <p>Klasično i moderno šišanje uz preciznu završnu obradu.</p>
-                <span>30 min • 12 €</span>
-            </div>
+                    <h5>@item.Name</h5>
 
-            <div class="home-card">
-                <div class="home-card__icon">🎨</div>
-                <h5>Balayage</h5>
-                <p>Moderna tehnika bojenja za prirodan i elegantan izgled.</p>
-                <span>180 min • 80 €</span>
-            </div>
+                    <p>@item.Description</p>
 
-            <div class="home-card">
-                <div class="home-card__icon">✨</div>
-                <h5>Keratin tretman</h5>
-                <p>Obnova, zaglađivanje i dubinska njega oštećene kose.</p>
-                <span>120 min • 60 €</span>
-            </div>
+                    <span>
+                        @item.DurationMinutes min • @item.Price.ToString("0.00") €
+                    </span>
+                </div>
+            }
         </div>
     </section>
 
@@ -92,20 +87,18 @@
         </div>
 
         <div class="home-grid home-grid--three">
-            <div class="home-card stylist-card">
-                <h5>Ana Petrović</h5>
-                <p>Šišanje i feniranje — 8 godina iskustva.</p>
-            </div>
+            @foreach (var stylist in Model.Stylists)
+            {
+                <div class="home-card stylist-card">
+                    <h5>@stylist.FullName</h5>
 
-            <div class="home-card stylist-card">
-                <h5>Marko Jovanović</h5>
-                <p>Specijalista za bojenje, balayage i moderne color tehnike.</p>
-            </div>
+                    <p>@stylist.Specialization</p>
 
-            <div class="home-card stylist-card">
-                <h5>Milica Kovač</h5>
-                <p>Tretmani, njega i obnova oštećene kose.</p>
-            </div>
+                    <small class="text-muted">
+                        @stylist.Bio
+                    </small>
+                </div>
+            }
         </div>
     </section>
 
@@ -119,17 +112,23 @@
         </div>
 
         <div class="home-grid home-grid--two">
-            <div class="home-card">
-                <h5>Kako njegovati kosu tokom ljeta</h5>
-                <p>Koristite hidratantne maske, zaštitu od sunca i redovno skraćujte krajeve.</p>
-                <a href='@Url.Action("Index", "Blog")' class="btn btn-sm btn-primary">Pročitaj</a>
-            </div>
+            @foreach (var post in Model.BlogPosts)
+            {
+                <div class="home-card">
+                    <h5>@post.Title</h5>
 
-            <div class="home-card">
-                <h5>Top frizure ove sezone</h5>
-                <p>Prirodni talasi, slojevito šišanje i nježne nijanse dominiraju ove sezone.</p>
-                <a href='@Url.Action("Index", "Blog")' class="btn btn-sm btn-primary">Pročitaj</a>
-            </div>
+                    <p>
+                        @(post.Content.Length > 140
+                    ? post.Content.Substring(0, 140) + "..."
+                    : post.Content)
+                    </p>
+
+                    <a href='@Url.Action("Details", "Blog", new { id = post.Id })'
+                       class="btn btn-sm btn-primary">
+                        Pročitaj
+                    </a>
+                </div>
+            }
         </div>
     </section>
 

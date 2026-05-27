@@ -196,6 +196,7 @@
     <Compile Include="Models\ContactMessage.cs" />
     <Compile Include="Models\DeletedCommentLog.cs" />
     <Compile Include="Models\GalleryImage.cs" />
+    <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Review.cs" />

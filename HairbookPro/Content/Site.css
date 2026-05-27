@@ -652,3 +652,132 @@ textarea.form-control {
         width: 100%;
     }
 }
+
+.salon-page-header {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 34px;
+    box-shadow: 0 14px 34px rgba(80, 40, 50, 0.08);
+}
+
+    .salon-page-header h1 {
+        font-size: 40px;
+        font-weight: 900;
+        color: var(--text);
+        margin-bottom: 10px;
+    }
+
+    .salon-page-header p {
+        color: var(--muted);
+        font-size: 17px;
+    }
+
+.services-search-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+    .services-search-row .form-control {
+        flex: 1;
+    }
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.service-card-modern {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: 0 12px 32px rgba(80, 40, 50, 0.08);
+    transition: 0.2s ease;
+}
+
+    .service-card-modern:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 42px rgba(80, 40, 50, 0.13);
+    }
+
+.service-card-modern__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+    .service-card-modern__top span {
+        width: 44px;
+        height: 44px;
+        background: #fff0ed;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+    }
+
+    .service-card-modern__top strong {
+        color: var(--primary-dark);
+        background: #fff0ed;
+        border-radius: 999px;
+        padding: 6px 12px;
+    }
+
+.service-card-modern h3 {
+    font-size: 22px;
+    font-weight: 850;
+    color: var(--text);
+}
+
+.service-card-modern p {
+    color: var(--muted);
+    line-height: 1.6;
+    min-height: 52px;
+}
+
+.service-card-modern__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 18px;
+}
+
+    .service-card-modern__bottom strong {
+        font-size: 20px;
+        color: var(--primary-dark);
+    }
+
+@media (max-width: 992px) {
+    .services-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .services-search-row {
+        display: block;
+    }
+
+        .services-search-row .form-control,
+        .services-search-row .btn {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .service-card-modern__bottom {
+        display: block;
+    }
+
+        .service-card-modern__bottom .btn {
+            margin-top: 12px;
+        }
+}
