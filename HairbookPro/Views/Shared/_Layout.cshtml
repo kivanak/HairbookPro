@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - HairBookPro</title>
+    <title>@ViewBag.Title - Hairbookpro</title>
 
     @Styles.Render("~/Content/css")
 
@@ -29,6 +29,9 @@
                     <li class="nav-item">@Html.ActionLink("Frizeri", "Index", "Stylists", new { area = "" }, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Blog", "Index", "Blog", new { area = "" }, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Moji termini", "Index", "Appointments", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Kontakt", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })
+                    </li>
                 </ul>
 
                 <div class="d-flex align-items-center">
@@ -62,7 +65,7 @@
 
     <footer class="salon-footer">
         <div class="container">
-            <p>&copy; @DateTime.Now.Year HairBookPro — frizerski salon i online zakazivanje termina.</p>
+            <p>&copy; @DateTime.Now.Year Hairbookpro — frizerski salon i online zakazivanje termina.</p>
         </div>
     </footer>
 

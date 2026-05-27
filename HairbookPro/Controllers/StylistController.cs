@@ -1,10 +1,10 @@
 ﻿using Hairbookpro.Models;
-using HairBookPro.Models;
+using Hairbookpro.Models;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 
-namespace HairBookPro.Controllers
+namespace Hairbookpro.Controllers
 {
     public class StylistsController : Controller
     {

@@ -1,19 +1,72 @@
-﻿@{
-    ViewBag.Title = "Contact";
+﻿@model Hairbookpro.Models.ContactMessage
+
+@{
+    ViewBag.Title = "Kontakt";
 }
-<main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
-    <h3>@ViewBag.Message</h3>
 
-    <address>
-        One Microsoft Way<br />
-        Redmond, WA 98052-6399<br />
-        <abbr title="Phone">P:</abbr>
-        425.555.0100
-    </address>
+<section class="contact-page">
+    <div class="contact-info-card">
+        <span class="home-eyebrow">Kontakt</span>
+        <h1>Pišite nam</h1>
+        <p>
+            Imate pitanje o uslugama, terminima ili radu salona?
+            Pošaljite nam poruku i naš tim će vam odgovoriti u najkraćem roku.
+        </p>
 
-    <address>
-        <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-        <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-    </address>
-</main>
+        <div class="contact-info-list">
+            <div>
+                <strong>Adresa</strong>
+                <span>Centar, Podgorica</span>
+            </div>
+
+            <div>
+                <strong>Telefon</strong>
+                <span>+382 67 000 000</span>
+            </div>
+
+            <div>
+                <strong>Email</strong>
+                <span>info@hairbookpro.me</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="contact-form-card">
+        <h2>Kontakt forma</h2>
+
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["Success"]
+            </div>
+        }
+
+        @using (Html.BeginForm("Contact", "Home", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
+
+            <div class="mb-3">
+                <label>Ime i prezime</label>
+                @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", placeholder = "Unesite ime i prezime" })
+                @Html.ValidationMessageFor(m => m.FullName, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                <label>Email adresa</label>
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Unesite email adresu" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-4">
+                <label>Poruka</label>
+                @Html.TextAreaFor(m => m.Message, new { @class = "form-control", rows = 6, placeholder = "Unesite poruku..." })
+                @Html.ValidationMessageFor(m => m.Message, "", new { @class = "text-danger" })
+            </div>
+
+            <button class="btn btn-primary btn-lg">
+                Pošalji poruku
+            </button>
+        }
+    </div>
+</section>

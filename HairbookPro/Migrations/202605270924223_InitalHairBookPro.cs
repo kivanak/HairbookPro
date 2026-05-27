@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitalHairBookPro : DbMigration
+    public partial class InitalHairbookpro : DbMigration
     {
         public override void Up()
         {

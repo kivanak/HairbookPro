@@ -1,7 +1,7 @@
 ﻿using Hairbookpro.Models;
 using System.Collections.Generic;
 
-namespace HairBookPro.Models
+namespace Hairbookpro.Models
 {
     public class HomeViewModel
     {

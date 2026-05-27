@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 using System.Data.Entity;
 using System.Linq;
-using HairBookPro.Models;
+using System.Web.Mvc;
 using Hairbookpro.Models;
 
 namespace Hairbookpro.Controllers
@@ -13,6 +9,8 @@ namespace Hairbookpro.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext db = new ApplicationDbContext();
+
+        // HOME PAGE
         public ActionResult Index()
         {
             var model = new HomeViewModel
@@ -44,16 +42,44 @@ namespace Hairbookpro.Controllers
             return View(model);
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
+        // CONTACT PAGE
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            return View(new ContactMessage());
+        }
+
+        // CONTACT FORM SUBMIT
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Contact(FormCollection form)
+        {
+            var message = new ContactMessage
+            {
+                FullName = form["FullName"],
+                Email = form["Email"],
+                Message = form["Message"],
+                CreatedAt = DateTime.Now
+            };
+
+            TryValidateModel(message);
+
+            if (ModelState.IsValid)
+            {
+                db.ContactMessages.Add(message);
+                db.SaveChanges();
+
+                TempData["Success"] = "Vaša poruka je uspješno poslata.";
+
+                return RedirectToAction("Contact");
+            }
+
+            return View(message);
+        }
+
+        // ABOUT PAGE
+        public ActionResult About()
+        {
+            ViewBag.Message = "HairBookPro aplikacija za upravljanje frizerskim salonom.";
 
             return View();
         }

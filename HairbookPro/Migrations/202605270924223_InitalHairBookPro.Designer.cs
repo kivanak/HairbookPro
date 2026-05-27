@@ -7,13 +7,13 @@ namespace HairbookPro.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class InitalHairBookPro : IMigrationMetadata
+    public sealed partial class InitalHairbookpro : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitalHairBookPro));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitalHairbookpro));
         
         string IMigrationMetadata.Id
         {
-            get { return "202605270924223_InitalHairBookPro"; }
+            get { return "202605270924223_InitalHairbookpro"; }
         }
         
         string IMigrationMetadata.Source
