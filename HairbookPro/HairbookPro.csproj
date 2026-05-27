@@ -174,11 +174,17 @@
     <Compile Include="Controllers\AppointmentsController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LandingController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202605270924223_InitalHairBookPro.cs" />
+    <Compile Include="Migrations\202605270924223_InitalHairBookPro.Designer.cs">
+      <DependentUpon>202605270924223_InitalHairBookPro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\AppointmentLog.cs" />
@@ -279,6 +285,7 @@
     <Content Include="Views\Services\Details.cshtml" />
     <Content Include="Views\Services\Index.cshtml" />
     <Content Include="Views\Services\Search.cshtml" />
+    <Content Include="Views\Landing\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -309,6 +316,11 @@
     <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Scripts\jquery-3.7.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.7.0.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202605270924223_InitalHairBookPro.resx">
+      <DependentUpon>202605270924223_InitalHairBookPro.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
