@@ -1,7 +1,6 @@
 using System;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
 using System.Web.Mvc;
 using Hairbookpro.Models;
 using Microsoft.AspNet.Identity;
@@ -13,6 +12,7 @@ namespace Hairbookpro.Controllers
     {
         private readonly ApplicationDbContext db = new ApplicationDbContext();
 
+        // GET: Appointments
         public ActionResult Index()
         {
             var userId = User.Identity.GetUserId();
@@ -27,11 +27,26 @@ namespace Hairbookpro.Controllers
             return View(appointments);
         }
 
-        public ActionResult Create()
+        // GET: Appointments/Create
+        public ActionResult Create(int? serviceId)
         {
-            ViewBag.ServiceId = new SelectList(db.Services.Where(s => s.IsActive), "Id", "Name");
-            ViewBag.StylistId = new SelectList(db.Stylists.Where(s => s.IsActive), "Id", "FullName");
-            return View(new Appointment { AppointmentDate = DateTime.Now.AddDays(1) });
+            ViewBag.ServiceId = new SelectList(
+                db.Services.Where(s => s.IsActive),
+                "Id",
+                "Name",
+                serviceId
+            );
+
+            ViewBag.StylistId = new SelectList(
+                db.Stylists.Where(s => s.IsActive),
+                "Id",
+                "FullName"
+            );
+
+            return View(new Appointment
+            {
+                AppointmentDate = DateTime.Now.AddDays(1)
+            });
         }
 
         [HttpPost]
@@ -42,23 +57,52 @@ namespace Hairbookpro.Controllers
             appointment.Status = "Pending";
             appointment.CreatedAt = DateTime.Now;
 
+            ModelState.Remove("UserId");
+            ModelState.Remove("Status");
+
             var taken = db.Appointments.Any(a =>
                 a.StylistId == appointment.StylistId &&
                 a.AppointmentDate == appointment.AppointmentDate &&
                 a.Status != "Cancelled");
 
             if (taken)
+            {
                 ModelState.AddModelError("", "Izabrani termin je već zauzet.");
+            }
+
+            // DEBUG
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage)
+                    .ToList();
+
+                ViewBag.Errors = errors;
+            }
 
             if (ModelState.IsValid)
             {
                 db.Appointments.Add(appointment);
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ServiceId = new SelectList(db.Services.Where(s => s.IsActive), "Id", "Name", appointment.ServiceId);
-            ViewBag.StylistId = new SelectList(db.Stylists.Where(s => s.IsActive), "Id", "FullName", appointment.StylistId);
+            ViewBag.ServiceId = new SelectList(
+                db.Services.Where(s => s.IsActive),
+                "Id",
+                "Name",
+                appointment.ServiceId
+            );
+
+            ViewBag.StylistId = new SelectList(
+                db.Stylists.Where(s => s.IsActive),
+                "Id",
+                "FullName",
+                appointment.StylistId
+            );
+
             return View(appointment);
         }
     }

@@ -10,6 +10,17 @@
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        if (ViewBag.Errors != null)
+        {
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach (var error in ViewBag.Errors)
+                    {
+                        <li>@error</li>
+                    }
+                </ul>
+            </div>
+        }
 
         <div class="mb-3">
             <label>Usluga</label>
@@ -23,7 +34,11 @@
 
         <div class="mb-3">
             @Html.LabelFor(m => m.AppointmentDate)
-            @Html.TextBoxFor(m => m.AppointmentDate, "{0:yyyy-MM-ddTHH:mm}", new { @class = "form-control", type = "datetime-local" })
+            <input type="datetime-local"
+                   name="AppointmentDate"
+                   class="form-control"
+                   value="@DateTime.Now.AddDays(1).ToString("yyyy-MM-ddTHH:mm")" />
+            @Html.ValidationMessageFor(m => m.AppointmentDate, "", new { @class = "text-danger" })
         </div>
 
         <div class="mb-3">
