@@ -209,6 +209,8 @@
     <Compile Include="Models\Stylist.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Content Include="Views\AdminServices\Create.cshtml" />
+    <Content Include="Views\AdminServices\Edit.cshtml" />
     <None Include="Views\AdminServices\Index.cshtml" />
     <Content Include="Views\Stylists\Index.cshtml" />
   </ItemGroup>

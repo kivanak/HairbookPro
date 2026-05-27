@@ -1,44 +1,158 @@
 ﻿@model IEnumerable<Hairbookpro.Models.Service>
 
 @{
-    ViewBag.Title = "Manage Services";
+    ViewBag.Title = "Administracija usluga";
 }
 
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="@Url.Action("Index", "AdminDashboard")">Admin</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Services</li>
-  </ol>
-</nav>
+<section class="admin-page-header">
+    <div>
+        <span class="home-eyebrow">Administracija</span>
+        <h1>Upravljanje uslugama</h1>
+        <p>Dodavanje, uređivanje i brisanje usluga frizerskog salona.</p>
+    </div>
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h2 class="mb-0">Services</h2>
-    <p class="mb-0">@Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })</p>
- </div>
+    <div>
+        @Html.ActionLink(
+            "➕ Dodaj novu uslugu",
+            "Create",
+            null,
+            new { @class = "btn btn-primary btn-lg" }
+        )
+    </div>
+</section>
 
-<div class="card">
-  <div class="card-body">
-    <table class="table table-striped mb-0">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Specialization</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach(var s in Model)
-        {
-            <tr>
-                <td>@s.FullName</td>
-                <td>@s.Specialization</td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = s.Id }, new { @class = "btn btn-sm btn-outline-secondary mr-2" })
-                    @Html.ActionLink("Delete", "Delete", new { id = s.Id }, new { @class = "btn btn-sm btn-danger" })
-                </td>
-            </tr>
-        }
-      </tbody>
-    </table>
-  </div>
+<div class="admin-table-card">
+    <div class="table-responsive">
+        <table class="table align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Usluga</th>
+                    <th>Kategorija</th>
+                    <th>Trajanje</th>
+                    <th>Cijena</th>
+                    <th>Status</th>
+                    <th class="text-end">Akcije</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var s in Model)
+                {
+                    <tr>
+                        <td>
+                            <div class="admin-service-name">
+                                <strong>@s.Name</strong>
+
+                                @if (!string.IsNullOrWhiteSpace(s.Description))
+                                {
+                                    <small class="d-block text-muted">
+                                        @(s.Description.Length > 80
+                                            ? s.Description.Substring(0, 80) + "..."
+                                            : s.Description)
+                                    </small>
+                                }
+                            </div>
+                        </td>
+
+                        <td>
+                            @(s.ServiceCategory != null
+                                ? s.ServiceCategory.Name
+                                : "Bez kategorije")
+                        </td>
+
+                        <td>
+                            @s.DurationMinutes min
+                        </td>
+
+                        <td>
+                            <strong>@s.Price.ToString("0.00") €</strong>
+                        </td>
+
+                        <td>
+                            @if (s.IsActive)
+                            {
+                                <span class="badge badge-success">
+                                    Aktivna
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-secondary">
+                                    Neaktivna
+                                </span>
+                            }
+                        </td>
+
+                        <td class="text-end">
+                          
+
+                            @Html.ActionLink(
+                                "Izmijeni",
+                                "Edit",
+                                new { id = s.Id },
+                                new { @class = "btn btn-sm btn-primary me-2" }
+                            )
+
+                           <button class="btn btn-sm btn-danger"
+        data-bs-toggle="modal"
+        data-bs-target="#deleteModal-@s.Id">
+    Obriši
+</button>
+
+<div class="modal fade"
+     id="deleteModal-@s.Id"
+     tabindex="-1">
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content salon-modal">
+
+            <div class="modal-header border-0">
+                <h5 class="modal-title">
+                    Brisanje usluge
+                </h5>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal">
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <p>
+                    Da li ste sigurni da želite obrisati:
+                </p>
+
+                <strong>@s.Name</strong>
+            </div>
+
+            <div class="modal-footer border-0">
+                <button type="button"
+                        class="btn btn-outline-secondary"
+                        data-bs-dismiss="modal">
+                    Otkaži
+                </button>
+
+                @using (Html.BeginForm(
+                    "Delete",
+                    "AdminServices",
+                    new { id = s.Id },
+                    FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <button type="submit"
+                            class="btn btn-danger">
+                        Obriši
+                    </button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
