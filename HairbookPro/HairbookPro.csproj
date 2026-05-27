@@ -213,6 +213,8 @@
     <Content Include="Views\AdminServices\Edit.cshtml" />
     <None Include="Views\AdminServices\Index.cshtml" />
     <Content Include="Views\Stylists\Index.cshtml" />
+    <Content Include="Views\AdminStylists\Create.cshtml" />
+    <Content Include="Views\AdminStylists\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />

@@ -1,0 +1,71 @@
+@model Hairbookpro.Models.Stylist
+
+@{
+    ViewBag.Title = "Izmjena frizera";
+}
+
+<section class="admin-form-wrapper">
+    <div class="admin-form-card">
+        <div class="admin-form-header">
+            <span class="home-eyebrow">Administracija</span>
+            <h1>Izmjena frizera</h1>
+            <p>Izmijenite informacije o članu tima.</p>
+        </div>
+
+        @using (Html.BeginForm("Edit", "AdminStylists", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.Id)
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger mb-4" })
+
+            <div class="mb-3">
+                <label>Ime i prezime</label>
+                @Html.TextBoxFor(m => m.FullName, new
+                {
+                    @class = "form-control"
+                })
+            </div>
+
+            <div class="mb-3">
+                <label>Specijalizacija</label>
+                @Html.TextBoxFor(m => m.Specialization, new
+                {
+                    @class = "form-control"
+                })
+            </div>
+
+            <div class="mb-3">
+                <label>Biografija</label>
+                @Html.TextAreaFor(m => m.Bio, new
+                {
+                    @class = "form-control",
+                    rows = 5
+                })
+            </div>
+
+            <div class="form-check mb-4">
+                @Html.CheckBoxFor(m => m.IsActive, new
+                {
+                    @class = "form-check-input"
+                })
+
+                <label class="form-check-label">
+                    Aktivan član tima
+                </label>
+            </div>
+
+            <div class="admin-form-actions">
+                <button type="submit"
+                        class="btn btn-primary btn-lg">
+                    Sačuvaj izmjene
+                </button>
+
+                <a href='@Url.Action("Index")'
+                   class="btn btn-outline-secondary btn-lg">
+                    Nazad
+                </a>
+            </div>
+        }
+    </div>
+</section>
