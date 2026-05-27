@@ -1,16 +1,39 @@
 /*
-Hairbookpro SQL objekti:
-- 2 triggera
-- 2 stored procedure
-- 2 funkcije
+=========================================================
+HAIRBOOKPRO SQL OBJEKTI
+=========================================================
 
-Pokrenuti nakon EF migracija u SQL Server Management Studio.
-Po potrebi provjeri tačna imena tabela ako EF napravi pluralizaciju drugačije.
+Ova skripta dodaje obavezne napredne SQL objekte za projekat:
+
+1. TRIGGERI
+   - Automatski se izvršavaju kada se desi određena promjena u tabeli.
+   - Koriste se za logovanje i arhiviranje podataka.
+
+2. STORED PROCEDURE
+   - Čuvaju SQL logiku u bazi.
+   - Koriste se za detaljnu pretragu usluga i kreiranje termina.
+
+3. FUNKCIJE
+   - Vraćaju izračunate vrijednosti.
+   - Koriste se za prosječnu ocjenu frizera i broj termina korisnika.
+=========================================================
 */
+
 
 ---------------------------------------------------------
 -- TRIGGER 1: Logovanje novog termina
 ---------------------------------------------------------
+/*
+Kada korisnik zakaže novi termin, u tabelu Appointments se dodaje novi red.
+
+Ovaj trigger se automatski aktivira nakon INSERT operacije nad tabelom Appointments
+i upisuje zapis u tabelu AppointmentLogs.
+
+Svrha:
+- evidentira da je termin kreiran
+- omogućava adminu da vidi istoriju kreiranja termina
+- pokazuje upotrebu triggera za automatsko logovanje promjena
+*/
 CREATE OR ALTER TRIGGER trg_Appointment_Insert_Log
 ON dbo.Appointments
 AFTER INSERT
@@ -24,9 +47,21 @@ BEGIN
 END;
 GO
 
+
 ---------------------------------------------------------
 -- TRIGGER 2: Arhiviranje obrisanih komentara
 ---------------------------------------------------------
+/*
+Kada se komentar obriše iz tabele Comments, podaci o tom komentaru bi se inače izgubili.
+
+Ovaj trigger se automatski aktivira nakon DELETE operacije nad tabelom Comments
+i prije trajnog uklanjanja čuva kopiju obrisanog komentara u tabeli DeletedCommentLogs.
+
+Svrha:
+- čuva istoriju obrisanih komentara
+- omogućava audit trag
+- pokazuje upotrebu triggera za arhiviranje podataka
+*/
 CREATE OR ALTER TRIGGER trg_Comment_Delete_Archive
 ON dbo.Comments
 AFTER DELETE
@@ -40,9 +75,27 @@ BEGIN
 END;
 GO
 
+
 ---------------------------------------------------------
 -- STORED PROCEDURE 1: Detaljna pretraga usluga
 ---------------------------------------------------------
+/*
+Ova procedura realizuje detaljnu pretragu usluga u salonu.
+
+Prima više opcionalnih parametara:
+- tekst za pretragu
+- kategoriju
+- minimalnu cijenu
+- maksimalnu cijenu
+- maksimalno trajanje usluge
+
+Ako je neki parametar NULL, taj filter se ignoriše.
+
+Svrha:
+- logiku detaljne pretrage premješta iz aplikacije u bazu
+- omogućava fleksibilno filtriranje
+- direktno ispunjava uslov projekta za stored procedure
+*/
 CREATE OR ALTER PROCEDURE sp_SearchServices
     @Query NVARCHAR(120) = NULL,
     @CategoryId INT = NULL,
@@ -66,9 +119,22 @@ BEGIN
 END;
 GO
 
+
 ---------------------------------------------------------
 -- STORED PROCEDURE 2: Kreiranje termina uz provjeru zauzetosti
 ---------------------------------------------------------
+/*
+Ova procedura se koristi za zakazivanje termina.
+
+Prije upisa termina provjerava da li je izabrani frizer već zauzet
+u istom terminu. Ako postoji aktivan termin za tog frizera i datum,
+procedura prekida izvršavanje i vraća grešku.
+
+Svrha:
+- centralizuje poslovno pravilo u bazi
+- sprječava duplo zakazivanje istog frizera u istom terminu
+- koristi se iz AppointmentsController-a prilikom kreiranja termina
+*/
 CREATE OR ALTER PROCEDURE sp_CreateAppointment
     @UserId NVARCHAR(128),
     @ServiceId INT,
@@ -96,9 +162,21 @@ BEGIN
 END;
 GO
 
+
 ---------------------------------------------------------
 -- FUNCTION 1: Prosječna ocjena frizera
 ---------------------------------------------------------
+/*
+Ova funkcija računa prosječnu ocjenu za određenog frizera.
+
+Prima StylistId i računa prosjek svih ocjena iz tabele Reviews.
+Ako frizer još nema nijednu ocjenu, funkcija vraća 0.
+
+Svrha:
+- koristi se za prikaz prosječne ocjene frizera u interfejsu
+- povezuje tabelu Stylists sa tabelom Reviews
+- pokazuje upotrebu SQL funkcije za izračunavanje vrijednosti
+*/
 CREATE OR ALTER FUNCTION fn_GetAverageStylistRating (@StylistId INT)
 RETURNS DECIMAL(10,2)
 AS
@@ -113,9 +191,21 @@ BEGIN
 END;
 GO
 
+
 ---------------------------------------------------------
 -- FUNCTION 2: Broj termina korisnika
 ---------------------------------------------------------
+/*
+Ova funkcija računa koliko termina ima određeni korisnik.
+
+Prima UserId i broji sve termine iz tabele Appointments koji pripadaju tom korisniku.
+Ako korisnik nema termine, funkcija vraća 0.
+
+Svrha:
+- može se koristiti na stranici "Moji termini" ili admin dashboardu
+- prikazuje korisničku aktivnost
+- pokazuje upotrebu SQL funkcije za agregaciju podataka
+*/
 CREATE OR ALTER FUNCTION fn_GetUserAppointmentCount (@UserId NVARCHAR(128))
 RETURNS INT
 AS
