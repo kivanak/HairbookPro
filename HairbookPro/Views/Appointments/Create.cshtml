@@ -1,0 +1,36 @@
+@model HairBookPro.Models.Appointment
+@{
+    ViewBag.Title = "Zakazivanje termina";
+}
+
+<div class="container mt-4">
+    <h2>Zakazivanje termina</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="mb-3">
+            <label>Usluga</label>
+            @Html.DropDownList("ServiceId", null, new { @class = "form-control" })
+        </div>
+
+        <div class="mb-3">
+            <label>Frizer</label>
+            @Html.DropDownList("StylistId", null, new { @class = "form-control" })
+        </div>
+
+        <div class="mb-3">
+            @Html.LabelFor(m => m.AppointmentDate)
+            @Html.TextBoxFor(m => m.AppointmentDate, "{0:yyyy-MM-ddTHH:mm}", new { @class = "form-control", type = "datetime-local" })
+        </div>
+
+        <div class="mb-3">
+            @Html.LabelFor(m => m.Note)
+            @Html.TextAreaFor(m => m.Note, new { @class = "form-control" })
+        </div>
+
+        <button class="btn btn-success">Zakaži</button>
+    }
+</div>

@@ -1,0 +1,32 @@
+@model HairBookPro.Models.BlogPost
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<div class="container mt-4">
+    <h2>@Model.Title</h2>
+    <p><small>@Model.CreatedAt.ToShortDateString() | @Model.BlogCategory.Name</small></p>
+    <p>@Model.Content</p>
+
+    <hr />
+    <h4>Komentari</h4>
+
+    @foreach (var comment in Model.Comments.OrderByDescending(c => c.CreatedAt))
+    {
+        <div class="border rounded p-2 mb-2">
+            <p>@comment.Content</p>
+            <small>@comment.CreatedAt</small>
+        </div>
+    }
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        using (Html.BeginForm("AddComment", "Blog", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Hidden("blogPostId", Model.Id)
+            <textarea name="content" class="form-control mb-2" placeholder="Unesi komentar"></textarea>
+            <button class="btn btn-primary">Dodaj komentar</button>
+        }
+    }
+</div>

@@ -1,0 +1,34 @@
+@model IEnumerable<HairBookPro.Models.Service>
+@{
+    ViewBag.Title = "Usluge";
+}
+
+<div class="container mt-4">
+    <h2>Usluge</h2>
+
+    @using (Html.BeginForm("Index", "Services", FormMethod.Get, new { @class = "mb-3" }))
+    {
+        <div class="input-group">
+            <input type="text" name="q" value="@ViewBag.Query" class="form-control" placeholder="Brza pretraga usluga..." />
+            <button class="btn btn-primary" type="submit">Pretraži</button>
+            @Html.ActionLink("Detaljna pretraga", "Search", null, new { @class = "btn btn-outline-secondary" })
+        </div>
+    }
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5>@item.Name</h5>
+                        <p>@item.Description</p>
+                        <p><strong>@item.Price.ToString("0.00") €</strong></p>
+                        <p>@item.DurationMinutes min</p>
+                        @Html.ActionLink("Detalji", "Details", new { id = item.Id }, new { @class = "btn btn-sm btn-primary" })
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

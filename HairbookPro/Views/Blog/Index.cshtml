@@ -1,0 +1,20 @@
+@model IEnumerable<HairBookPro.Models.BlogPost>
+@{
+    ViewBag.Title = "Blog";
+}
+
+<div class="container mt-4">
+    <h2>Blog</h2>
+
+    @foreach (var post in Model)
+    {
+        <div class="card mb-3">
+            <div class="card-body">
+                <h4>@post.Title</h4>
+                <p><small>@post.CreatedAt.ToShortDateString() | @post.BlogCategory.Name</small></p>
+                <p>@(post.Content.Length > 200 ? post.Content.Substring(0, 200) + "..." : post.Content)</p>
+                @Html.ActionLink("Pročitaj", "Details", new { id = post.Id }, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    }
+</div>

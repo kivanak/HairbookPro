@@ -1,0 +1,12 @@
+@model HairBookPro.Models.Service
+@{
+    ViewBag.Title = "Detalji usluge";
+}
+
+<div class="container mt-4">
+    <h2>@Model.Name</h2>
+    <p>@Model.Description</p>
+    <p><strong>Cijena:</strong> @Model.Price.ToString("0.00") €</p>
+    <p><strong>Trajanje:</strong> @Model.DurationMinutes min</p>
+    @Html.ActionLink("Zakaži termin", "Create", "Appointments", null, new { @class = "btn btn-success" })
+</div>

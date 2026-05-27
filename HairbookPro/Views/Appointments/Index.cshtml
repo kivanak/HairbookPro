@@ -1,0 +1,29 @@
+@model IEnumerable<HairBookPro.Models.Appointment>
+@{
+    ViewBag.Title = "Moji termini";
+}
+
+<div class="container mt-4">
+    <h2>Moji termini</h2>
+    @Html.ActionLink("Novi termin", "Create", null, new { @class = "btn btn-primary mb-3" })
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <tr>
+                <th>Usluga</th>
+                <th>Frizer</th>
+                <th>Datum</th>
+                <th>Status</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Service.Name</td>
+                    <td>@item.Stylist.FullName</td>
+                    <td>@item.AppointmentDate</td>
+                    <td>@item.Status</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
